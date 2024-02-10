@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import { FC, useState } from 'react';
 import { TErrors, TPost } from './types';
 import { PostList } from './components/PostList';
 import { PostForm } from './components/PostForm';
@@ -52,7 +52,7 @@ export const PostsPage: FC = () => {
     <section className="flex flex-col space-y-4 text-left">
       <PostForm onSubmit={handleSubmit} errors={errors} />
       <section className="space-y-4">
-        <PostList posts={posts} />P
+        <PostList posts={posts} />
       </section>
     </section>
   );
