@@ -1,4 +1,5 @@
 import { FC, FormEvent, useRef, useState } from 'react';
+import { FormGroup } from './components/FormGroup';
 
 const data = [
   {
@@ -19,6 +20,9 @@ type TPost = {
 const truncate = (text: string, length = 20) => (text.length > length ? `${text.substring(0, length)}...` : text);
 
 const formatDate = (date: Date) => date.toLocaleDateString() + ' - ' + date.toLocaleTimeString();
+
+const NAME_ID = 'name';
+const TEXT_ID = 'text';
 
 export const PostsPage: FC = () => {
   const inputNameRef = useRef<HTMLInputElement>(null);
@@ -63,37 +67,25 @@ export const PostsPage: FC = () => {
     });
   };
 
+  const fieldClassName = 'border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm';
+
   return (
     <section className="flex flex-col space-y-4 text-left">
       <form onSubmit={handleSubmit}>
         <div>
-          <div className="mt-2">
-            <label htmlFor="author" className="block mb-2 text-sm font-medium">
-              Your name:
-            </label>
-            <input
-              id="author"
-              name="author"
-              ref={inputNameRef}
-              className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
-              placeholder="Some post"
-            />
-            {errors.name.message && <div className="text-red-500">{errors.name.message}</div>}
-          </div>
-          <div className="mt-2">
-            <label htmlFor="post" className="block mb-2 text-sm font-medium">
-              Your post:
-            </label>
+          <FormGroup label="Your name" name={NAME_ID} error={errors.name.message}>
+            <input id={NAME_ID} name={NAME_ID} ref={inputNameRef} className={fieldClassName} placeholder="Your name" />
+          </FormGroup>
+          <FormGroup label="Your post" name={TEXT_ID} error={errors.text.message}>
             <textarea
-              id="post"
-              name="post"
+              id={TEXT_ID}
+              name={TEXT_ID}
               ref={textareaTextRef}
-              className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
+              className={fieldClassName}
               placeholder="Some post"
               rows={4}
             />
-            {errors.text.message && <div className="text-red-500">{errors.text.message}</div>}
-          </div>
+          </FormGroup>
         </div>
         <div className="mt-2">
           <button type="submit" className="bg-green-600 font-bold text-white py-3 px-6 w-fit">
