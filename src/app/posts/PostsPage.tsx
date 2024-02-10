@@ -1,5 +1,14 @@
 import { useState } from 'react';
 
+const data = [
+  {
+    id: 1,
+    name: 'John Doe',
+    publishedAt: '2024-01-01',
+    text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos.',
+  },
+];
+
 export const PostsPage = () => {
   const [name, setName] = useState('');
   const [text, setText] = useState('');
@@ -42,36 +51,25 @@ export const PostsPage = () => {
       </div>
       <section className="space-y-4">
         <ul>
-          <li>
-            <div className="p-4 border border-stone-700 rounded my-3 flex justify-between gap-5 items-start">
-              <div className="flex-none">
-                <div className="flex-row">
-                  <div>
-                    <strong>Author</strong>
-                  </div>
-                  <div>
-                    <em>2024-01-01</em>
+          {data.map(post => (
+            <li key={post.id}>
+              <div className="p-4 border border-stone-700 rounded my-3 flex justify-between gap-5 items-start">
+                <div className="flex-none">
+                  <div className="flex-row">
+                    <div>
+                      <strong>{post.name}</strong>
+                    </div>
+                    <div>
+                      <em>{post.publishedAt}</em>
+                    </div>
                   </div>
                 </div>
+                <div className="flex-1">
+                  <p className="text-ellipsis overflow-hidden">{post.text}</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-ellipsis overflow-hidden">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Class aptent taciti sociosqu ad litora
-                  torquent per conubia nostra, per inceptos hymenaeos. Aenean fermentum risus id tortor. Etiam ligula
-                  pede, sagittis quis, interdum ultricies, scelerisque eu. Nulla accumsan, elit sit amet varius semper,
-                  nulla mauris mollis quam, tempor suscipit diam nulla vel leo. In dapibus augue non sapien. Donec vitae
-                  arcu. Nulla non arcu lacinia neque faucibus fringilla. Fusce tellus odio, dapibus id fermentum quis,
-                  suscipit id erat. Aliquam erat volutpat. Nullam dapibus fermentum ipsum. Praesent dapibus. Integer
-                  tempor. Etiam dictum tincidunt diam. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum. Fusce nibh. Sed convallis magna eu sem. Maecenas ipsum
-                  velit, consectetuer eu lobortis ut, dictum at dui. Nullam lectus justo, vulputate eget mollis sed,
-                  tempor sed magna. Pellentesque sapien. Aliquam id dolor. Duis sapien nunc, commodo et, interdum
-                  suscipit, sollicitudin et, dolor. Aliquam erat volutpat. Duis viverra diam non justo. Praesent vitae
-                  arcu tempor neque lacinia pretium.
-                </p>
-              </div>
-            </div>
-          </li>
+            </li>
+          ))}
         </ul>
       </section>
     </section>
