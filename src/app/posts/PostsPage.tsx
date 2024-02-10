@@ -1,4 +1,4 @@
-import { FC, FormEvent, useRef, useState } from 'react';
+import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 
 const data = [
   {
@@ -24,6 +24,10 @@ export const PostsPage: FC = () => {
   const inputNameRef = useRef<HTMLInputElement>(null);
   const textareaTextRef = useRef<HTMLTextAreaElement>(null);
   const [posts, setPosts] = useState<TPost[]>(data);
+  const [errors, setErrors] = useState<{ name: { message: string }; text: { message: string } }>({
+    name: { message: '' },
+    text: { message: '' },
+  });
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,6 +36,11 @@ export const PostsPage: FC = () => {
     const text = textareaTextRef.current?.value;
 
     if (!name || !text) {
+      setErrors({
+        name: { message: !name ? 'Name is required' : '' },
+        text: { message: !text ? 'Text is required' : '' },
+      });
+
       return;
     }
 
@@ -47,6 +56,11 @@ export const PostsPage: FC = () => {
 
     inputNameRef.current.value = '';
     textareaTextRef.current.value = '';
+
+    setErrors({
+      name: { message: '' },
+      text: { message: '' },
+    });
   };
 
   return (
@@ -64,6 +78,7 @@ export const PostsPage: FC = () => {
               className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
               placeholder="Some post"
             />
+            {errors.name.message && <div className="text-red-500">{errors.name.message}</div>}
           </div>
           <div className="mt-2">
             <label htmlFor="post" className="block mb-2 text-sm font-medium">
@@ -77,6 +92,7 @@ export const PostsPage: FC = () => {
               placeholder="Some post"
               rows={4}
             />
+            {errors.text.message && <div className="text-red-500">{errors.text.message}</div>}
           </div>
         </div>
         <div className="mt-2">
