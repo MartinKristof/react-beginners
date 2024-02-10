@@ -3,7 +3,7 @@ import { TPost } from '../types';
 
 const truncate = (text: string, length = 20) => (text.length > length ? `${text.substring(0, length)}...` : text);
 
-const formatDate = (date: Date) => date.toLocaleDateString() + ' - ' + date.toLocaleTimeString();
+const formatDate = (date: number) => new Date(date).toLocaleDateString() + ' - ' + new Date(date).toLocaleTimeString();
 
 export const PostItem: FC<Omit<TPost, 'id'>> = ({ name, publishedAt, text }) => {
   return (

@@ -1,7 +1,7 @@
 export type TPost = {
-  id: number;
+  id: string;
   name: string;
-  publishedAt: Date;
+  publishedAt: number;
   text: string;
 };
 
