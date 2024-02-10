@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 const data = [
   {
     id: 1,
-    name: 'John Doe',
+    name: 'John Doe the First of His Name',
     publishedAt: '2024-01-01',
-    text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos.',
+    text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis condimentum augue id magna semper rutrum. Pellentesque arcu. Etiam dictum tincidunt diam. In rutrum. Morbi scelerisque luctus velit. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Nullam at arcu a est sollicitudin euismod. Duis condimentum augue id magna semper rutrum. Etiam quis quam. Integer malesuada. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   },
 ];
 
-export const PostsPage = () => {
+const truncate = (text: string, length = 20) => (text.length > length ? `${text.substring(0, length)}...` : text);
+
+export const PostsPage: FC = () => {
   const [name, setName] = useState('');
   const [text, setText] = useState('');
 
@@ -57,7 +59,7 @@ export const PostsPage = () => {
                 <div className="flex-none">
                   <div className="flex-row">
                     <div>
-                      <strong>{post.name}</strong>
+                      <strong>{truncate(post.name)}</strong>
                     </div>
                     <div>
                       <em>{post.publishedAt}</em>
@@ -65,7 +67,7 @@ export const PostsPage = () => {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <p className="text-ellipsis overflow-hidden">{post.text}</p>
+                  <p className="text-ellipsis overflow-hidden">{truncate(post.text, 200)}</p>
                 </div>
               </div>
             </li>
