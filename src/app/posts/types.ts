@@ -4,3 +4,8 @@ export type TPost = {
   publishedAt: Date;
   text: string;
 };
+
+export type TErrors = {
+  name: { message: string };
+  text: { message: string };
+};
