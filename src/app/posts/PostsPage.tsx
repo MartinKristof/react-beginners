@@ -1,5 +1,7 @@
 import { FC, FormEvent, useRef, useState } from 'react';
 import { FormGroup } from './components/FormGroup';
+import { TPost } from './types';
+import { PostList } from './components/PostList';
 
 const data = [
   {
@@ -9,17 +11,6 @@ const data = [
     text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis condimentum augue id magna semper rutrum. Pellentesque arcu. Etiam dictum tincidunt diam. In rutrum. Morbi scelerisque luctus velit. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Nullam at arcu a est sollicitudin euismod. Duis condimentum augue id magna semper rutrum. Etiam quis quam. Integer malesuada. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   },
 ];
-
-type TPost = {
-  id: number;
-  name: string;
-  publishedAt: Date;
-  text: string;
-};
-
-const truncate = (text: string, length = 20) => (text.length > length ? `${text.substring(0, length)}...` : text);
-
-const formatDate = (date: Date) => date.toLocaleDateString() + ' - ' + date.toLocaleTimeString();
 
 const NAME_ID = 'name';
 const TEXT_ID = 'text';
@@ -94,27 +85,7 @@ export const PostsPage: FC = () => {
         </div>
       </form>
       <section className="space-y-4">
-        <ul>
-          {posts.map(post => (
-            <li key={post.id}>
-              <div className="p-4 border border-stone-700 rounded my-3 flex justify-between gap-5 items-start">
-                <div className="flex-none">
-                  <div className="flex-row">
-                    <div>
-                      <strong>{truncate(post.name)}</strong>
-                    </div>
-                    <div>
-                      <em>{formatDate(post.publishedAt)}</em>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <p className="text-ellipsis overflow-hidden">{truncate(post.text, 200)}</p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <PostList posts={posts} />
       </section>
     </section>
   );
