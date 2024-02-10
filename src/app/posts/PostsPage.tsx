@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useRef, useState } from 'react';
 
 const data = [
   {
@@ -21,12 +21,15 @@ const truncate = (text: string, length = 20) => (text.length > length ? `${text.
 const formatDate = (date: Date) => date.toLocaleDateString() + ' - ' + date.toLocaleTimeString();
 
 export const PostsPage: FC = () => {
-  const [name, setName] = useState('');
-  const [text, setText] = useState('');
+  const inputNameRef = useRef<HTMLInputElement>(null);
+  const textareaTextRef = useRef<HTMLTextAreaElement>(null);
   const [posts, setPosts] = useState<TPost[]>(data);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const name = inputNameRef.current?.value;
+    const text = textareaTextRef.current?.value;
 
     if (!name || !text) {
       return;
@@ -42,8 +45,8 @@ export const PostsPage: FC = () => {
       ...currentPosts,
     ]);
 
-    setName('');
-    setText('');
+    inputNameRef.current.value = '';
+    textareaTextRef.current.value = '';
   };
 
   return (
@@ -57,8 +60,7 @@ export const PostsPage: FC = () => {
             <input
               id="author"
               name="author"
-              value={name}
-              onChange={event => setName(event.target.value)}
+              ref={inputNameRef}
               className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
               placeholder="Some post"
             />
@@ -70,8 +72,7 @@ export const PostsPage: FC = () => {
             <textarea
               id="post"
               name="post"
-              value={text}
-              onChange={event => setText(event.target.value)}
+              ref={textareaTextRef}
               className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
               placeholder="Some post"
               rows={4}
