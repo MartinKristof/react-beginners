@@ -1,4 +1,9 @@
+import { useState } from 'react';
+
 export const PostsPage = () => {
+  const [name, setName] = useState('');
+  const [text, setText] = useState('');
+
   return (
     <section className="flex flex-col space-y-4 text-left">
       <div>
@@ -9,6 +14,8 @@ export const PostsPage = () => {
           <input
             id="author"
             name="author"
+            value={name}
+            onChange={event => setName(event.target.value)}
             className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
             placeholder="Some post"
           />
@@ -20,6 +27,8 @@ export const PostsPage = () => {
           <textarea
             id="post"
             name="post"
+            value={text}
+            onChange={event => setText(event.target.value)}
             className="border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm"
             placeholder="Some post"
             rows={4}
