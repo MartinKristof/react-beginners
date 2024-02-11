@@ -1,4 +1,4 @@
-import './App.css';
-import { PostsPage } from './posts/PostsPage';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
-export const App = () => <PostsPage />;
+export const App = () => <RouterProvider router={router} />;
