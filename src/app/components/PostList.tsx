@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TPost } from '../types';
+import { TPost } from '../types/types';
 import { PostItem } from './PostItem';
 
 export const PostList: FC<{ posts: TPost[] }> = ({ posts }) =>

@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import { TErrors } from './types';
-import { PostList } from './components/PostList';
+import { TErrors } from '../types/types';
+import { PostList } from '../components/PostList';
 import { PostForm } from './components/PostForm';
 import { usePosts } from './hooks/usePosts';
 import { Helmet } from 'react-helmet';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { Spinner } from '../components/Spinner/Spinner';
 
 export const PostsPage: FC = () => {
   const { posts, fetchPosts, addPost, error, loading } = usePosts();
@@ -46,8 +48,8 @@ export const PostsPage: FC = () => {
       </Helmet>
       <section className="flex flex-col space-y-4 text-left">
         <PostForm onSubmit={handleSubmit} errors={errors} />
-        {error && <div className="text-red-500">{error}</div>}
-        {loading && <div className="text-black-500">Loading...</div>}
+        <ErrorMessage>{error}</ErrorMessage>
+        {loading && <Spinner />}
         <section className="space-y-4">
           <PostList posts={posts} />
         </section>

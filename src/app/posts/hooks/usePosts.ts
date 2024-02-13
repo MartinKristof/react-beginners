@@ -1,5 +1,5 @@
 import { useApi } from '../../hooks/useApi';
-import { TPost } from '../types';
+import { TPost } from '../../types/types';
 
 export const usePosts = () => {
   const { data: posts, loading, error, fetchData, addData } = useApi<TPost>();

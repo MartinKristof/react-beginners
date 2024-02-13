@@ -1,9 +1,11 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { FormGroup } from '../posts/components/FormGroup';
 import { useSearch } from './hooks/useSearch';
-import { PostList } from '../posts/components/PostList';
+import { PostList } from '../components/PostList';
 import { useDebounce } from 'use-debounce';
 import { Helmet } from 'react-helmet';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { Spinner } from '../components/Spinner/Spinner';
 
 export const SearchPage: FC = () => {
   const [search, setSearch] = useState('');
@@ -37,8 +39,8 @@ export const SearchPage: FC = () => {
             />
           </FormGroup>
         </div>
-        {error && <div className="text-red-500">{error}</div>}
-        {loading && <div className="text-black-500">Loading...</div>}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {loading && <Spinner />}
         <section className="space-y-4">
           <PostList posts={posts} />
         </section>

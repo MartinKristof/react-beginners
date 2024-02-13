@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TPost } from '../types';
+import { TPost } from '../types/types';
 
 const truncate = (text: string, length = 20) => (text.length > length ? `${text.substring(0, length)}...` : text);
 

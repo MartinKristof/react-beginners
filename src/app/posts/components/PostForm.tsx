@@ -1,6 +1,6 @@
 import { FC, FormEvent, useRef } from 'react';
 import { FormGroup } from './FormGroup';
-import { TErrors } from '../types';
+import { TErrors } from '../../types/types';
 
 const NAME_ID = 'name';
 const TEXT_ID = 'text';
