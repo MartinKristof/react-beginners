@@ -25,14 +25,10 @@ export const SearchPage: FC = () => {
       <Helmet>
         <title>Search posts</title>
       </Helmet>
-      <section className="flex flex-col space-y-4 text-left">
-        <SearchForm searchValue={search} onChange={handleChange} />
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        {loading && <Spinner />}
-        <section className="space-y-4">
-          <PostList posts={posts} />
-        </section>
-      </section>
+      <SearchForm searchValue={search} onChange={handleChange} />
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {loading && <Spinner />}
+      <PostList posts={posts} />
     </>
   );
 };

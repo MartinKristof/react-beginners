@@ -15,7 +15,7 @@ export const Layout: FC = () => (
         <NavItem to="search">Search</NavItem>
       </ul>
     </nav>
-    <section className="py-3 container mx-auto px-4">
+    <section className="py-3 container mx-auto px-4 flex flex-col space-y-4 text-left">
       <Outlet />
     </section>
   </>

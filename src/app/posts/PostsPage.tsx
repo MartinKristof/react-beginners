@@ -46,14 +46,10 @@ export const PostsPage: FC = () => {
       <Helmet>
         <title>Posts</title>
       </Helmet>
-      <section className="flex flex-col space-y-4 text-left">
-        <PostForm onSubmit={handleSubmit} errors={errors} />
-        <ErrorMessage>{error}</ErrorMessage>
-        {loading && <Spinner />}
-        <section className="space-y-4">
-          <PostList posts={posts} />
-        </section>
-      </section>
+      <PostForm onSubmit={handleSubmit} errors={errors} />
+      <ErrorMessage>{error}</ErrorMessage>
+      {loading && <Spinner />}
+      <PostList posts={posts} />
     </>
   );
 };
