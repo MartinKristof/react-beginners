@@ -6,7 +6,7 @@ import { usePosts } from './hooks/usePosts';
 import { Helmet } from 'react-helmet';
 
 export const PostsPage: FC = () => {
-  const { posts, fetchPosts, addPost, apiError } = usePosts();
+  const { posts, fetchPosts, addPost, error, loading } = usePosts();
   const [errors, setErrors] = useState<TErrors>({
     name: { message: '' },
     text: { message: '' },
@@ -46,7 +46,8 @@ export const PostsPage: FC = () => {
       </Helmet>
       <section className="flex flex-col space-y-4 text-left">
         <PostForm onSubmit={handleSubmit} errors={errors} />
-        {apiError && <div className="text-red-500">{apiError}</div>}
+        {error && <div className="text-red-500">{error}</div>}
+        {loading && <div className="text-black-500">Loading...</div>}
         <section className="space-y-4">
           <PostList posts={posts} />
         </section>

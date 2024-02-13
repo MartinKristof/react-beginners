@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet';
 export const SearchPage: FC = () => {
   const [search, setSearch] = useState('');
   const [term] = useDebounce(search, 500);
-  const { posts, fetchSearch, apiError } = useSearch();
+  const { posts, fetchSearch, error, loading } = useSearch();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -37,7 +37,8 @@ export const SearchPage: FC = () => {
             />
           </FormGroup>
         </div>
-        {apiError && <div className="text-red-500">{apiError}</div>}
+        {error && <div className="text-red-500">{error}</div>}
+        {loading && <div className="text-black-500">Loading...</div>}
         <section className="space-y-4">
           <PostList posts={posts} />
         </section>
