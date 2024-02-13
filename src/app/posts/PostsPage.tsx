@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { TErrors } from '../types/types';
 import { PostList } from '../components/PostList';
 import { PostForm } from './components/PostForm';
@@ -36,10 +36,6 @@ export const PostsPage: FC = () => {
 
     await fetchPosts();
   };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   return (
     <>

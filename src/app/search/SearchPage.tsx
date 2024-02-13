@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useSearch } from './hooks/useSearch';
 import { PostList } from '../components/PostList';
 import { useDebounce } from 'use-debounce';
@@ -10,15 +10,11 @@ import { SearchForm } from './components/SearchForm';
 export const SearchPage: FC = () => {
   const [search, setSearch] = useState('');
   const [term] = useDebounce(search, 500);
-  const { posts, fetchSearch, error, loading } = useSearch();
+  const { posts, error, loading } = useSearch(term);
 
   const handleChange = (value: string) => {
     setSearch(value);
   };
-
-  useEffect(() => {
-    fetchSearch(term);
-  }, [term]);
 
   return (
     <>
