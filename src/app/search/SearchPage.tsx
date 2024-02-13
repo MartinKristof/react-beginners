@@ -2,9 +2,11 @@ import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { FormGroup } from '../posts/components/FormGroup';
 import { useSearch } from './hooks/useSearch';
 import { PostList } from '../posts/components/PostList';
+import { useDebounce } from 'use-debounce';
 
 export const SearchPage: FC = () => {
   const [search, setSearch] = useState('');
+  const [term] = useDebounce(search, 500);
   const { posts, fetchSearch, apiError } = useSearch();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -12,8 +14,8 @@ export const SearchPage: FC = () => {
   };
 
   useEffect(() => {
-    fetchSearch(search);
-  }, [search]);
+    fetchSearch(term);
+  }, [term]);
 
   return (
     <section className="flex flex-col space-y-4 text-left">
