@@ -3,6 +3,7 @@ import { TErrors } from './types';
 import { PostList } from './components/PostList';
 import { PostForm } from './components/PostForm';
 import { usePosts } from './hooks/usePosts';
+import { Helmet } from 'react-helmet';
 
 export const PostsPage: FC = () => {
   const { posts, fetchPosts, addPost, apiError } = usePosts();
@@ -39,12 +40,17 @@ export const PostsPage: FC = () => {
   }, []);
 
   return (
-    <section className="flex flex-col space-y-4 text-left">
-      <PostForm onSubmit={handleSubmit} errors={errors} />
-      {apiError && <div className="text-red-500">{apiError}</div>}
-      <section className="space-y-4">
-        <PostList posts={posts} />
+    <>
+      <Helmet>
+        <title>Posts</title>
+      </Helmet>
+      <section className="flex flex-col space-y-4 text-left">
+        <PostForm onSubmit={handleSubmit} errors={errors} />
+        {apiError && <div className="text-red-500">{apiError}</div>}
+        <section className="space-y-4">
+          <PostList posts={posts} />
+        </section>
       </section>
-    </section>
+    </>
   );
 };

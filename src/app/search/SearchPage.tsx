@@ -3,6 +3,7 @@ import { FormGroup } from '../posts/components/FormGroup';
 import { useSearch } from './hooks/useSearch';
 import { PostList } from '../posts/components/PostList';
 import { useDebounce } from 'use-debounce';
+import { Helmet } from 'react-helmet';
 
 export const SearchPage: FC = () => {
   const [search, setSearch] = useState('');
@@ -18,24 +19,29 @@ export const SearchPage: FC = () => {
   }, [term]);
 
   return (
-    <section className="flex flex-col space-y-4 text-left">
-      <div className="w-1/3">
-        <FormGroup label="Search" name="search">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            value={search}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Search..."
-          />
-        </FormGroup>
-      </div>
-      {apiError && <div className="text-red-500">{apiError}</div>}
-      <section className="space-y-4">
-        <PostList posts={posts} />
+    <>
+      <Helmet>
+        <title>Search posts</title>
+      </Helmet>
+      <section className="flex flex-col space-y-4 text-left">
+        <div className="w-1/3">
+          <FormGroup label="Search" name="search">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              value={search}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="Search..."
+            />
+          </FormGroup>
+        </div>
+        {apiError && <div className="text-red-500">{apiError}</div>}
+        <section className="space-y-4">
+          <PostList posts={posts} />
+        </section>
       </section>
-    </section>
+    </>
   );
 };
