@@ -1,19 +1,19 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
-import { FormGroup } from '../posts/components/FormGroup';
+import { FC, useEffect, useState } from 'react';
 import { useSearch } from './hooks/useSearch';
 import { PostList } from '../components/PostList';
 import { useDebounce } from 'use-debounce';
 import { Helmet } from 'react-helmet';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Spinner } from '../components/Spinner/Spinner';
+import { SearchForm } from './components/SearchForm';
 
 export const SearchPage: FC = () => {
   const [search, setSearch] = useState('');
   const [term] = useDebounce(search, 500);
   const { posts, fetchSearch, error, loading } = useSearch();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+  const handleChange = (value: string) => {
+    setSearch(value);
   };
 
   useEffect(() => {
@@ -26,19 +26,7 @@ export const SearchPage: FC = () => {
         <title>Search posts</title>
       </Helmet>
       <section className="flex flex-col space-y-4 text-left">
-        <div className="w-1/3">
-          <FormGroup label="Search" name="search">
-            <input
-              type="text"
-              name="search"
-              id="search"
-              value={search}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              placeholder="Search..."
-            />
-          </FormGroup>
-        </div>
+        <SearchForm searchValue={search} onChange={handleChange} />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         {loading && <Spinner />}
         <section className="space-y-4">

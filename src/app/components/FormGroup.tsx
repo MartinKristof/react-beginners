@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { ErrorMessage } from './ErrorMessage';
 
 export const FormGroup: FC<{ label: string; name: string; children: ReactNode; error?: string }> = ({
   children,
@@ -11,6 +12,6 @@ export const FormGroup: FC<{ label: string; name: string; children: ReactNode; e
       {label}:
     </label>
     {children}
-    {error && <div className="text-red-500">{error}</div>}
+    {error && <ErrorMessage>{error}</ErrorMessage>}
   </div>
 );

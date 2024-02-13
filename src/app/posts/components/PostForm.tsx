@@ -1,10 +1,10 @@
 import { FC, FormEvent, useRef } from 'react';
-import { FormGroup } from './FormGroup';
+import { FormGroup } from '../../components/FormGroup';
 import { TErrors } from '../../types/types';
+import { Input } from '../../components/Input';
 
 const NAME_ID = 'name';
 const TEXT_ID = 'text';
-const FIELD_CLASS_NAME = 'border border-slate-500 px-8 py-2 block p-2.5 w-full text-sm';
 
 export const PostForm: FC<{ onSubmit: (nameValue: string, textValue: string) => void; errors: TErrors }> = ({
   onSubmit,
@@ -34,14 +34,14 @@ export const PostForm: FC<{ onSubmit: (nameValue: string, textValue: string) => 
     <form onSubmit={handleSubmit}>
       <div>
         <FormGroup label="Your name" name={NAME_ID} error={errors.name.message}>
-          <input id={NAME_ID} name={NAME_ID} ref={inputNameRef} className={FIELD_CLASS_NAME} placeholder="Your name" />
+          <Input id={NAME_ID} name={NAME_ID} ref={inputNameRef} placeholder="Your name" />
         </FormGroup>
         <FormGroup label="Your post" name={TEXT_ID} error={errors.text.message}>
           <textarea
             id={TEXT_ID}
             name={TEXT_ID}
             ref={textareaTextRef}
-            className={FIELD_CLASS_NAME}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Some post"
             rows={4}
           />
