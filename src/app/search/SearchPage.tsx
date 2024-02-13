@@ -1,21 +1,39 @@
-import { FC } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { FormGroup } from '../posts/components/FormGroup';
+import { useSearch } from './hooks/useSearch';
+import { PostList } from '../posts/components/PostList';
 
 export const SearchPage: FC = () => {
+  const [search, setSearch] = useState('');
+  const { posts, fetchSearch, apiError } = useSearch();
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
+  useEffect(() => {
+    fetchSearch(search);
+  }, [search]);
+
   return (
     <section className="flex flex-col space-y-4 text-left">
       <div className="w-1/3">
-        <div className="mt-2">
-          <label htmlFor="text" className="block mb-2 text-sm font-medium">
-            Search:
-          </label>
+        <FormGroup label="Search" name="search">
           <input
             type="text"
+            name="search"
+            id="search"
+            value={search}
+            onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Search..."
           />
-        </div>
+        </FormGroup>
       </div>
-      <section className="space-y-4"></section>
+      {apiError && <div className="text-red-500">{apiError}</div>}
+      <section className="space-y-4">
+        <PostList posts={posts} />
+      </section>
     </section>
   );
 };
