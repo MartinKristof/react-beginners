@@ -1,34 +1,15 @@
-import { FC, FormEvent, useRef } from 'react';
+import { FC } from 'react';
 import { FormGroup } from '../../components/FormGroup';
 import { TErrors } from '../../types/types';
 import { Input } from '../../components/Input';
+import { usePostForm } from '../hooks/usePostForm';
+import { TOnSubmit } from '../types/types';
 
 const NAME_ID = 'name';
 const TEXT_ID = 'text';
 
-export const PostForm: FC<{ onSubmit: (nameValue: string, textValue: string) => void; errors: TErrors }> = ({
-  onSubmit,
-  errors,
-}) => {
-  const inputNameRef = useRef<HTMLInputElement>(null);
-  const textareaTextRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const name = inputNameRef.current?.value || '';
-    const text = textareaTextRef.current?.value || '';
-
-    onSubmit(name, text);
-
-    if (inputNameRef.current) {
-      inputNameRef.current.value = '';
-    }
-
-    if (textareaTextRef.current) {
-      textareaTextRef.current.value = '';
-    }
-  };
+export const PostForm: FC<{ onSubmit: TOnSubmit; errors: TErrors }> = ({ onSubmit, errors }) => {
+  const { inputNameRef, textareaTextRef, handleSubmit } = usePostForm(onSubmit);
 
   return (
     <form onSubmit={handleSubmit}>

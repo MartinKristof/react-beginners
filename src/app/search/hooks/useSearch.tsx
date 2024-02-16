@@ -1,21 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi';
 import { TPost } from '../../types/types';
+import { useDebounce } from 'use-debounce';
 
-export const useSearch = (term: string) => {
-  const { data: posts, loading, error, fetchData } = useApi<TPost>();
+export const useSearch = () => {
+  const { data: posts, loading, error, getData } = useApi<TPost>();
+  const [search, setSearch] = useState('');
+  const [term] = useDebounce(search, 500);
 
-  const fetchSearch = async (term: string) => {
+  const handleChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const fetchSearch = async () => {
     if (!term.trim()) {
       return;
     }
 
-    await fetchData(`/?q=${term}`);
+    await getData(`/?q=${term}`);
   };
 
   useEffect(() => {
-    fetchSearch(term);
+    fetchSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [term]);
 
-  return { posts, fetchSearch, error, loading };
+  return { posts, fetchSearch, error, loading, search, handleChange };
 };

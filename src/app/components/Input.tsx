@@ -7,9 +7,13 @@ export const Input = forwardRef<
     id: string;
     name: string;
     placeholder: string;
+    // eslint-disable-next-line react/require-default-props
     className?: string;
+    // eslint-disable-next-line react/require-default-props
     value?: string;
+    // eslint-disable-next-line react/require-default-props
     defaultValue?: string;
+    // eslint-disable-next-line react/require-default-props
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   }
 >(({ id, name, placeholder, className = '', value, onChange, defaultValue }, ref) => (

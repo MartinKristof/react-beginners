@@ -7,7 +7,7 @@ export const useApi = <T,>() => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchData = async (path = '') => {
+  const getData = async (path = '') => {
     setLoading(true);
     try {
       const response = await fetch(API_URL + path);
@@ -39,5 +39,5 @@ export const useApi = <T,>() => {
     }
   };
 
-  return { data, loading, error, fetchData, addData };
+  return { data, loading, error, getData, addData };
 };
