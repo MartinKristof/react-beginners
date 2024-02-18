@@ -19,7 +19,7 @@ export const PostItem: FC<Omit<TPost, 'id'>> = ({ name, publishedAt, text }) => 
         </div>
       </div>
       <div className="flex-1">
-        <p className="text-ellipsis overflow-hidden">{truncate(text, 200)}</p>
+        <p className="text-ellipsis overflow-hidden" dangerouslySetInnerHTML={{ __html: truncate(text, 200) }} />
       </div>
     </div>
   );
