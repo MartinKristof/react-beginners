@@ -1,4 +1,7 @@
+// import { createElement } from 'react';
 import './App.css';
+
+// export const App = () => createElement('h1', { className: 'greeting' }, 'Hello');
 
 export const App = () => (
   <>
