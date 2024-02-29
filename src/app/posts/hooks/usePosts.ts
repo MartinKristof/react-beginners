@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi';
 import { TErrors, TPost } from '../../types/types';
 
@@ -9,9 +9,9 @@ export const usePosts = () => {
     text: { message: '' },
   });
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     await getData();
-  };
+  }, [getData]);
 
   const addPost = async (name: string, text: string) => {
     await addData({ name, text, publishedAt: new Date().getTime() });
@@ -42,8 +42,7 @@ export const usePosts = () => {
 
   useEffect(() => {
     fetchPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchPosts]);
 
   return { posts, loading, error, handleSubmit, errors };
 };

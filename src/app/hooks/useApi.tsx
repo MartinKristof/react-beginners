@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -7,7 +7,7 @@ export const useApi = <T,>() => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const getData = async (path = '') => {
+  const getData = useCallback(async (path = '') => {
     setLoading(true);
     try {
       const response = await fetch(API_URL + path);
@@ -20,9 +20,9 @@ export const useApi = <T,>() => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const addData = async (payload: Record<string, unknown>) => {
+  const addData = useCallback(async (payload: Record<string, unknown>) => {
     setLoading(true);
     try {
       await fetch(API_URL, {
@@ -37,7 +37,7 @@ export const useApi = <T,>() => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return { data, loading, error, getData, addData };
 };

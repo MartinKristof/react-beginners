@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi';
 import { TPost } from '../../types/types';
 import { useDebounce } from 'use-debounce';
@@ -12,18 +12,17 @@ export const useSearch = () => {
     setSearch(value);
   };
 
-  const fetchSearch = async () => {
+  const fetchSearch = useCallback(async () => {
     if (!term.trim()) {
       return;
     }
 
     await getData(`/?q=${term}`);
-  };
+  }, [getData, term]);
 
   useEffect(() => {
     fetchSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [term]);
+  }, [fetchSearch, term]);
 
   return { posts, fetchSearch, error, loading, search, handleChange };
 };
